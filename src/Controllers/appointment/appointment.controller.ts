@@ -1,3 +1,4 @@
+import { MailService } from './../../Services/mail/mail.service';
 /* eslint-disable prettier/prettier */
 import { Body, Controller, Delete, Get, HttpException, Param, Post, Put, Query, Res, UseGuards } from '@nestjs/common';
 import { Response } from 'express';
@@ -5,7 +6,7 @@ import { CreateAppointmentDto } from 'src/Models/DTO/appointment.dto';
 import { JwtAuthGuard } from 'src/Models/Guards/jwt.strategy';
 import { ApiResponse } from 'src/Models/Interface/response';
 import { PaginationDto } from 'src/Models/Paginate/appointment.dto';
-import { DataType, PaginatedProductsResultDto } from 'src/Models/Paginate/appointment.result.dto';
+import { PaginatedProductsResultDto } from 'src/Models/Paginate/appointment.result.dto';
 import { AppointmentService } from 'src/services/appointment/appointment.service';
 
 export interface me{
@@ -16,7 +17,11 @@ export interface me{
 @Controller('appointment/api')
 export class AppointmentController {
 
-    constructor(private _appointmentService: AppointmentService){}
+    constructor(private _appointmentService: AppointmentService,
+        // private _mailService: MailService
+        ){
+            
+        }
 
     @UseGuards(JwtAuthGuard)
     @Post('/create')
@@ -170,6 +175,7 @@ export class AppointmentController {
     }
 
 
+
     @UseGuards(JwtAuthGuard)
     @Get('/total_counts/:userId')
     getAppointmentCount(@Res() response: Response, @Param('userId') userId): Promise<any>{
@@ -192,5 +198,22 @@ export class AppointmentController {
             )
     }
 
+    @Post('/mail')
+    async sendMail(@Res() response): Promise<any> {
+        const sender = "valentinebassey02@gmail.com";
+        const sendTo = "awasevalentine@gmail.com";
+        const subject = "Testing";
+        const title = " First test";
+        const content = "Okay"
+        const payload = {sender, sendTo, subject, title, content}
+        // await this._mailService.sendConfirmation(payload).then((res) => {
+        //     response.json({message: "Appointment booking message sent!"})
+        // })
+    }
+
+}
+
+function appointmentMailDto(payload: { sender: string; sendTo: string; subject: string; title: string; content: string; }, appointmentMailDto: any) {
+    throw new Error('Function not implemented.');
 }
 

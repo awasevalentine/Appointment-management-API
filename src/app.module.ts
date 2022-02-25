@@ -1,15 +1,14 @@
+import { AppointmentModule } from './Modules/appointment/appointment.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UserModule } from './modules/user/user.module';
 import { AuthModule } from './modules/auth/auth.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserEntity } from './Models/Entities/user.entity';
-import { AppointmentModule } from './modules/appointment/appointment.module';
-import { AppointmentController } from './controllers/appointment/appointment.controller';
-import { AppointmentService } from './services/appointment/appointment.service';
 import { AppointmentEntity } from './Models/Entities/appointment.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { MailsModule } from './Modules/mails/mails.module';
 
 @Module({
   imports: [
@@ -27,6 +26,7 @@ import { AppointmentEntity } from './Models/Entities/appointment.entity';
     UserModule,
     AuthModule,
     AppointmentModule,
+    MailsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

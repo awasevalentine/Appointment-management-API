@@ -4,3 +4,8 @@ export enum AppointmentStatus {
     RUNNING = 'running',
     COMPLETE = 'complete',
 }
+
+export enum Reminder {
+    SENT = 'yes',
+    NOT_SENT ='no'
+}

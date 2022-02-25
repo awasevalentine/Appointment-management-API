@@ -1,6 +1,5 @@
 /* eslint-disable prettier/prettier */
-import { HttpException, HttpStatus, Injectable,  } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import {  HttpException, HttpStatus, Inject, Injectable, Logger } from '@nestjs/common';
 import {  CreateAppointmentDto } from 'src/Models/DTO/appointment.dto';
 import { AppointmentEntity } from 'src/Models/Entities/appointment.entity';
 import { UserEntity } from 'src/Models/Entities/user.entity';
@@ -9,19 +8,21 @@ import { Repository } from 'typeorm';
 import { PaginationDto } from 'src/Models/Paginate/appointment.dto';
 import { PaginatedProductsResultDto } from 'src/Models/Paginate/appointment.result.dto';
 import { AppointmentStatus } from 'src/Models/Interface/appointment-status.enum';
-import { Pagination, IPaginationOptions, paginate, paginateRaw } from 'nestjs-typeorm-paginate';
-import { from, map, Observable, skip, take } from 'rxjs';
+import { Cron, SchedulerRegistry } from '@nestjs/schedule'
+import { InjectRepository } from '@nestjs/typeorm';
 
 
 @Injectable()
-export class AppointmentService {
+export class AppointmentService  {
+
+  private readonly logger = new Logger(AppointmentService.name);
 
     constructor(
         @InjectRepository(AppointmentEntity)
         private _appointmentRepo: Repository<AppointmentEntity>,
-        @InjectRepository(UserEntity) private _userRepo: Repository<UserEntity>
+        @InjectRepository(UserEntity) private _userRepo: Repository<UserEntity>,
+        private schedulerRegistry: SchedulerRegistry,
     ){}
-
 
     async createAppointment(payload: CreateAppointmentDto): Promise<string>{
         const { userAuthId, ...data } = payload;
@@ -30,10 +31,27 @@ export class AppointmentService {
         const newAppointment = await this._appointmentRepo.create({...data, userAuthId: result});
         const saveAppointment = await this._appointmentRepo.save(newAppointment);
         if(saveAppointment){
+          // this.findNameExist(payload).then((res) =>{
+          //   return res
+          // },
+          // (err) => {
+          //   return err
+          // }
+          // )
+          // this._mailService.sendConfirmation(data)
             return `Appointment created successfully`
         }
         return;
     } 
+
+    async getAllAppointmentForCronJob(): Promise<any>{
+      const resp = await this._appointmentRepo.createQueryBuilder("appointments")
+      .leftJoinAndSelect('appointments.userAuthId', 'userAuthId')
+      .getMany();
+      return resp
+    }
+
+
 
 
     //Section for fetching all active/running Appointments from the DB
@@ -211,6 +229,20 @@ export class AppointmentService {
             
         }
 
+      }
+
+
+      //For Updating reminder for job cron
+      async updateReminder(id: any, payload) {
+        const foundAppointment = await this._appointmentRepo.findOne({where: {appointment_id: id}});
+        if(!foundAppointment){
+          throw new HttpException(`Appointment with id ${id} not found`, HttpStatus.NOT_FOUND )
+        }
+        foundAppointment.reminder = payload;
+        const saveAppointment = await this._appointmentRepo.update(id, foundAppointment);
+        if(saveAppointment){
+          return 'Reminder sent and data updated.'
+        }
       }
 
 

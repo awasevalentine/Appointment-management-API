@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import { type } from "os";
 import { Column, CreateDateColumn, DeleteDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
-import { AppointmentStatus } from "../Interface/appointment-status.enum";
+import { AppointmentStatus, Reminder } from "../Interface/appointment-status.enum";
 import { UserEntity } from "./user.entity";
 
 
@@ -29,6 +29,12 @@ export class AppointmentEntity {
     @Column({type: "enum", enum: AppointmentStatus, default: AppointmentStatus.RUNNING})
     status: AppointmentStatus;
 
+    @Column({type: 'enum', enum: Reminder, default: Reminder.NOT_SENT })
+    reminder?: Reminder
+
+    @Column({default: "awasevalentine@gmail.com"})
+    appointment_email?: string;
+
     @CreateDateColumn()
     date_created: Date;
 
@@ -37,6 +43,7 @@ export class AppointmentEntity {
 
     @DeleteDateColumn()
     date_deleted: Date
+
 
     @ManyToOne(()=> UserEntity, userAuthId => userAuthId.appointments)
     userAuthId: UserEntity
