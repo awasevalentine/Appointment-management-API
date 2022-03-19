@@ -6,6 +6,8 @@ export interface CreateAppointmentDto{
     userAuthId: string;
     title: string;
     name: string;
+    date_created?: Date;
+    date_updated?: Date;
     appointment_description: string;
     appointment_date: Date;
     appointment_time: string;

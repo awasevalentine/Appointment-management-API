@@ -2,7 +2,7 @@
 import { Column, Entity, JoinColumn, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { AppointmentEntity } from './appointment.entity';
 
-@Entity({ name: 'users' })
+@Entity({ name: 'appointmentdbuser' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
   auth_id: string;

@@ -28,6 +28,7 @@ export class AppointmentService  {
         const { userAuthId, ...data } = payload;
         const foundUser = await this._userRepo.findOne({where: {auth_id: userAuthId}})
         const {password, ...result } = foundUser
+          data.date_created = new Date()
         const newAppointment = await this._appointmentRepo.create({...data, userAuthId: result});
         const saveAppointment = await this._appointmentRepo.save(newAppointment);
         if(saveAppointment){
@@ -222,6 +223,7 @@ export class AppointmentService  {
             foundAppointment.appointment_date = payload.appointment_date;
             foundAppointment.appointment_time = payload.appointment_time;
             foundAppointment.status = payload.status;
+            foundAppointment.date_updated = new Date()
             const saveUpdate = await this._appointmentRepo.update(id, foundAppointment);
             if(saveUpdate){
                 return "Appointment successfully updated!"
