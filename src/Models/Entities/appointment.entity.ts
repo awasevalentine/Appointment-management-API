@@ -35,16 +35,16 @@ export class AppointmentEntity {
     @Column({default: "awasevalentine@gmail.com"})
     appointment_email?: string;
 
-    // @CreateDateColumn()
-    @Column()
+    @CreateDateColumn()
+    // @Column()
     date_created: Date;
 
-    // @UpdateDateColumn({default: new Date().toISOString()})
-    @Column()
+    @UpdateDateColumn()
+    // @Column()
     date_updated?: Date;
 
-    // @DeleteDateColumn()
-    @Column()
+    @DeleteDateColumn()
+    // @Column()
     date_deleted: Date
 
 
