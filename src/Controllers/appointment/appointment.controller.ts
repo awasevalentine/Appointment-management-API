@@ -7,7 +7,7 @@ import { JwtAuthGuard } from 'src/Models/Guards/jwt.strategy';
 import { ApiResponse } from 'src/Models/Interface/response';
 import { PaginationDto } from 'src/Models/Paginate/appointment.dto';
 import { PaginatedProductsResultDto } from 'src/Models/Paginate/appointment.result.dto';
-import { AppointmentService } from 'src/services/appointment/appointment.service';
+import { AppointmentService } from 'src/Services/appointment/appointment.service';
 
 export interface me{
     data: any
