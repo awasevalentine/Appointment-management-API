@@ -1,11 +1,11 @@
 import { MailService } from 'src/Services/mail/mail.service';
 import { Module } from '@nestjs/common';
-import { AppointmentController } from 'src/controllers/appointment/appointment.controller';
 import { AppointmentEntity } from 'src/Models/Entities/appointment.entity';
 import { UserEntity } from 'src/Models/Entities/user.entity';
-import { AppointmentService } from 'src/services/appointment/appointment.service';
 import { ScheduleModule } from '@nestjs/schedule';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { AppointmentService } from 'src/Services/appointment/appointment.service';
+import { AppointmentController } from 'src/Controllers/appointment/appointment.controller';
 @Module({
   imports: [
     TypeOrmModule.forFeature([AppointmentEntity, UserEntity]),

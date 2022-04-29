@@ -3,12 +3,12 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UserModule } from './modules/user/user.module';
-import { AuthModule } from './modules/auth/auth.module';
 import { UserEntity } from './Models/Entities/user.entity';
 import { AppointmentEntity } from './Models/Entities/appointment.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MailsModule } from './Modules/mails/mails.module';
+import { UserModule } from './Modules/user/user.module';
+import { AuthModule } from './Modules/auth/auth.module';
 
 @Module({
   imports: [
