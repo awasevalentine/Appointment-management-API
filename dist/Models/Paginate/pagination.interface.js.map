@@ -1,0 +1,1 @@
+{"version":3,"file":"pagination.interface.js","sourceRoot":"","sources":["../../../src/Models/Paginate/pagination.interface.ts"],"names":[],"mappings":";;;AAUA,MAAa,UAAU;IAKrB,YAAY,iBAA8D;QACxE,IAAI,CAAC,OAAO,GAAG,iBAAiB,CAAC,OAAO,CAAC;QACzC,IAAI,CAAC,UAAU,GAAG,iBAAiB,CAAC,OAAO,CAAC,MAAM,CAAC;QACnD,IAAI,CAAC,KAAK,GAAG,iBAAiB,CAAC,KAAK,CAAC;IACvC,CAAC;CACF;AAVD,gCAUC"}
