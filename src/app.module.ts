@@ -19,7 +19,7 @@ import { AuthModule } from './Modules/auth/auth.module';
       type: 'mysql',
       // host: process.env.MYSQL_HOST_2,
       // host: 'localhost',
-      // port: 3306,
+      port: 3306,
       // username: process.env.MYSQL_USERNAME,
       // password: process.env.MYSQL_PASSWORD,
       // database: 'appointment_app',
