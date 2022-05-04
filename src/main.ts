@@ -9,12 +9,10 @@ async function bootstrap() {
   // const port = parseInt(process.env.PORT, 10) || 3000
   const port = process.env.PORT || 5000;
   const host = '0.0.0.0'
-  // await app.listen(port, host, ()=> {
-  //   console.log("Server Running on port 3000")
-  // });
-  await app.listen(port, ()=> {
+  await app.listen(port, host, ()=> {
     console.log("Server Running on port 3000")
   });
+ 
   // await app.listen( process.env.PORT, ()=> {
   //   console.log("Server Running on port", process.env.PORT || 8080)
   // });
