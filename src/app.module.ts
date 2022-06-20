@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { AppointmentModule } from './Modules/appointment/appointment.module';
 import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
